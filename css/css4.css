@@ -1,0 +1,28 @@
+body {
+    background-color: mintcream;
+}
+div {
+    background-color: rgba(140, 226, 173, 0.425);
+    opacity: 0.5;
+}
+span {
+    border-style: dotted ridge dashed groove;
+    border-width: 3px; 
+    border-radius: 5px; 
+    border-color: rosybrown seagreen cadetblue goldenrod;
+}
+.div-class {
+    background-color: antiquewhite;
+}
+.tomato-text {
+    color: tomato;
+}
+.firebrick-text {
+    color: firebrick;
+}
+.big-size {
+    font-size: 50px;
+}
+#big-size-id {
+    font-size: 70px;
+}
