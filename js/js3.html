@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="load()">
+    <div id="contents" class="content">
+        <div id="text"></div>
+        <button onclick="red()">빨강</button>
+        <button onclick="blue()">파랑</button>
+        <button onclick="green()">초록</button>
+    </div>
+
+    <style>
+        .content {
+            position: absolute;
+            top: 40%;
+            left: 47%;
+        }
+    </style>
+
+    <script>
+        function init() {
+            let textCenter = document.getElementById('contents');
+            textCenter.style.display = "none";
+        }
+        function load() {
+            let name = prompt('텍스트를 입력해 주세요');
+            if (name == '' || name == null) {
+                alert('텍스트값을 입력해 주세요');
+                init();
+            }
+
+            let textCenter = document.getElementById('text');
+            textCenter.innerHTML = `<h1>${name}</h1>`;
+        }
+        function red() {
+            let textCenter = document.getElementById('text');
+            alert('빨간 색으로 변경됩니다.');
+            textCenter.style.color = "red";
+        }
+        function blue() {
+            let textCenter = document.getElementById('text');
+            alert('파란 색으로 변경됩니다.');
+            textCenter.style.color = "blue";
+        }
+        function green() {
+            let textCenter = document.getElementById('text');
+            alert('초록 색으로 변경됩니다.');
+            textCenter.style.color = "green";
+        }
+    </script>
+</body>
+</html>
