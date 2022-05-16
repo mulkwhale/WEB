@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        $(function () {
+            $('#article').click(function () {
+                let name = prompt('기사를 등록해 주세요');
+                if (name == '' || name == null) {
+                    alert('기사 내용을 등록해 주세요');
+                }
+
+                $('.main').append("<span>" + name + "</span>").attr("width", "300px");
+            });
+        });
+    </script>
+
+    <style>
+        .header {
+            background-color: gray;
+            display: inline-block;
+            color: black;
+            width: 230px;
+            padding: 10px;
+            border: 1px solid;
+        }
+        .main {
+            background-color: gainsboro;
+            display: inline-block;
+            width: 230px;
+            padding: 10px;
+            border: 1px solid;
+            border-color: white;
+        }
+        .box {
+            background-color: white;
+            padding: 10px;
+            margin: 7px;
+        }
+        #article {
+            width: 100px;image.png
+            height: 30px;
+            background-color: gray;
+            border: 1px solid;
+            margin: 13px;
+        }
+        span {
+            background-color: white;
+            padding: 10px;
+            margin: 7px;
+            display: block;
+        }
+    </style>
+
+    <div class="header">기사등록하기</div>
+    <br>
+    <div class="main">
+        <div class="box"><b>박지성</b> SBS에서 월드컵보세요!</div>
+        <div class="box"><b>안정환</b> MBC죠...</div>
+        <div class="box"><b>이영표</b> KBS는 수신료의 가치를..</div>
+    </div>
+    <br>
+    <input type="button" id="article" value="등록하기">
+</body>
+</html>
