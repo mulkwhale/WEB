@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+    <button id="button1" class="button">html</button>
+    <button id="button2" class="button">css</button>
+    <button id="button3" class="button">javascript</button>
+
+    <style>
+        .button {
+            background-color: gray;
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+            color: white;
+            border-style: none;
+        }
+    </style>
+
+    <script>
+        $(function () {
+            $('#button1').click(function () {
+                $('#button1').css("color", "black");
+                $('#button1').css("border", "thin solid black");
+                $('#button1').css("backgroundColor", "white");
+
+                $('#button2').css("color", "white");
+                $('#button2').css("border", "none");
+                $('#button2').css("backgroundColor", "gray");
+
+                $('#button3').css("color", "white");
+                $('#button3').css("border", "none");
+                $('#button3').css("backgroundColor", "gray");
+            });
+            $('#button2').click(function () {
+                $('#button2').css("color", "black");
+                $('#button2').css("border", "thin solid black");
+                $('#button2').css("backgroundColor", "white");
+
+                $('#button1').css("color", "white");
+                $('#button1').css("border", "none");
+                $('#button1').css("backgroundColor", "gray");
+
+                $('#button3').css("color", "white");
+                $('#button3').css("border", "none");
+                $('#button3').css("backgroundColor", "gray");
+            });
+            $('#button3').click(function () {
+                $('#button3').css("color", "black");
+                $('#button3').css("border", "thin solid black");
+                $('#button3').css("backgroundColor", "white");
+
+                $('#button2').css("color", "white");
+                $('#button2').css("border", "none");
+                $('#button2').css("backgroundColor", "gray");
+
+                $('#button1').css("color", "white");
+                $('#button1').css("border", "none");
+                $('#button1').css("backgroundColor", "gray");
+            });
+        });
+    </script>
+</body>
+</html>
