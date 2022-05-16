@@ -33,6 +33,7 @@
     <div id="container">
         <img id="mario" src="../assets/mario.gif" alt="mario">
         <img id="killer" src="../assets/killer.png" alt="killer">
+        <div id="gameover">게임오버</div>
     </div>
 
     <script>
@@ -41,7 +42,9 @@
         let mario = $("#mario");
         let killer = $("#killer");
 
+        // 상태
         let isJumping = false;
+        let isGameOver = false;
 
         function jump() {
             if (isJumping) {
@@ -70,8 +73,21 @@
             // console.log(marioRight > killerLeft);
             
             if (isJumping == false && marioRight > killerLeft && killerLeft > marioLeft) {
-                mario.hide();
+                isGameOver = true;
+                // mario.hide();
+                // killer.stop();
             }
+        }
+
+        function gameOver(){
+            killer.stop();
+            // 게임오버 화면 보여주고
+            $("#gameover").show();
+        }
+
+        function gameStart(){
+            $("#gameover").hide();
+            game();
         }
 
         $("body").keydown(function(event){
@@ -90,13 +106,23 @@
             }
         });
 
-        // 게임 화면 그리기 30frame
-        setInterval(function(){
-            // 1초에 30번 그리기
-            moveKiller();
-            // 마리오 사망 체크
-            marioDead();
-        }, 1000 / 30);
+        function game(){
+            // 게임 화면 그리기 30frame
+            setInterval(function(){
+                if (isGameOver) {
+                    gameOver();
+                } else {
+                    // 1초에 30번 그리기
+                    moveKiller();
+                    // 마리오 사망 체크
+                    marioDead();
+                }
+            }, 1000 / 30);
+        }
+
+        $(function(){
+            gameStart();
+        });
     </script>
 </body>
 </html>
