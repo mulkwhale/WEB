@@ -14,6 +14,7 @@
             width: 600px;
             height: 600px;
             border: 1px black solid;
+            left: 100px;
         }
         #mario {
             position: absolute;
@@ -24,19 +25,101 @@
         }
         #killer {
             position: absolute;
-            width: 100px;
+            height: 90px;
             bottom: 20px;
             right: -100px;
+        }
+        #background {
+            width: 600px;
+            height: 600px;
+        }
+        #endpanel{
+            position: absolute;
+            width: 350px;
+            height: 250px;
+            border: 1px black solid;
+            background-color: white;
+            left: 180px;
+            top: 50px;
+            font-size: 30px;
+            text-align: center;
+            padding: 50px;
+            background: url("../assets/game-over.gif");
+            background-size: contain;
+        }
+        #effect {
+            position: absolute;
+            width: 100px;
+            bottom: 20px;
+            left: 20px;
+        }
+        .button {
+            background-color: #8b47b3;
+            border: none;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            margin: 4px 2px;
+            height: 30px;
+        }
+        .button2:hover{
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+        #point {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 30px;
+            color: purple;
+        }
+        #mario_start{
+            position: absolute;
+            width: 300px;
+            left: 18%;
+        }
+        #startPage{
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            border: 1px black solid;
+            left: 100px;
+            background-color: white;
+            background: url("../assets/startPage.gif");
+        }
+        .text_start{
+            text-align: center;
+            color: white;
+        }
+        #mario_start_button{
+            position: absolute;
+            bottom: 8%;
+            left: 43%;
         }
     </style>
 
     <div id="container">
+        <img id="background" src="../assets/Desert.gif" alt="background">
         <img id="mario" src="../assets/mario.gif" alt="mario">
-        <img id="killer" src="../assets/killer.png" alt="killer">
-        <div id="gameover">
-            게임오버
-            <button id="game_start_button">게임 스타트</button>
+        <img id="killer" src="../assets/killer.gif" alt="killer">
+        <img id="effect" src="../assets/effect.gif" alt="effect">
+        <div id="point"></div>
+    </div>
+    <div id="startPage">
+        <br><br>
+        <div class="text_start">JAVASCRIPT MARIO</div>
+        <div class="text_start">개발자: 공윤정</div>
+        <div id="mario_start"><img src="../assets/mario_start.gif" alt="mario_start"></div>
+        <br>
+        <button id="mario_start_button" class="button button2">게임 시작</button>
+    </div>
+    <div id="gameover">
+        <div id="endpanel">
+            <br><br><br><br><br>
+            <button class="game_start_button button button2">다시 시작</button>
         </div>
+    </div>
+    <div id="start">
+        <button class="game_start_button button button2">게임 시작</button>
     </div>
 
     <script>
@@ -44,10 +127,15 @@
         const HEIGHT = 600;
         let mario = $("#mario");
         let killer = $("#killer");
+        let effect = $("#effect");
+        let startPage = $("#startPage");
+        let point = 0;
 
         // 상태
         let isJumping = false;
         let isGameOver = false;
+        let isPoint = false;
+        let isKillerDead = false;
 
         function jump() {
             if (isJumping) {
@@ -58,12 +146,33 @@
             mario.animate({bottom: "+=100px"}, 500)
             .animate({bottom: "-=100px"}, 500, function(){
                 isJumping = false;
-            });            
+            });
         }
 
         function moveKiller(){
+            killer.show();
             killer.animate({right: "120%"}, 3000, function(){
                 killer.css({right: "-100px"});
+
+                if(isGameOver == false){
+                    setTimeout(moveKiller, 1000);
+                    if (isPoint) {
+                        point += 100;
+                    }
+                    isPoint = false;
+                    if (isKillerDead) {
+                        point += 200;
+                    }
+                    isKillerDead = false;
+                }
+            });
+        }
+
+        function moveEffect(){
+            effect.show();
+            effect.animate({left: "120%"}, "fast", function(){
+                effect.css({left: "20px"});
+                effect.hide();
             });
         }
 
@@ -72,31 +181,56 @@
             let marioLeft = parseInt(mario.css("left").replace("px", ""));
             let marioRight = marioLeft + 100;
 
-            // console.log(`killerLeft: ${killerLeft}, marioRight: ${marioRight}`);
-            // console.log(marioRight > killerLeft);
-            
             if (isJumping == false && marioRight > killerLeft && killerLeft > marioLeft) {
                 isGameOver = true;
-                // mario.hide();
-                // killer.stop();
             }
+        }
+
+        function killerDead(){
+            let killerLeft = parseInt(killer.css("left").replace("px", ""));
+            let effectLeft = parseInt(effect.css("left").replace("px", ""));
+            let effectRight = effectLeft + 100;
+            
+            if (effectRight > killerLeft) {
+                killer.hide();
+                effect.hide();
+                isKillerDead = true;
+            }
+            effectRight = 0;
+        }
+
+        function getPoint(){
+            let killerLeft = parseInt(killer.css("left").replace("px", ""));
+            let killerRight = killerLeft + 73.47;
+            let marioLeft = parseInt(mario.css("left").replace("px", ""));
+
+            if (killerRight < marioLeft) {
+                isPoint = true;
+            }
+
+            $("#point").text(`SCORE ${point}`);
         }
 
         function gameOver(){
             killer.stop();
             // 게임오버 화면 보여주고
             $("#gameover").show();
+            isGameOver = true;
+            $("#start").hide();
+            $("#container").hide;
         }
 
         function gameStart(){
             $("#gameover").hide();
+            $("#start").show();
+            $("#container").show;
+            $("#effect").hide();
             isGameOver = false;
-            killer.stop();
-            kill.css('')
+            
+            killer.css({right: "-100px"});
         }
 
         $("body").keydown(function(event){
-            // console.log(event.key) 이걸로 확인
             // 마리오 현재 좌표 정보
             let left = parseInt(mario.css("left").replace("px", ""));
             let top = parseInt(mario.css("top").replace("px", ""));
@@ -108,30 +242,45 @@
                 case " ":
                     jump();
                     break;
+                case "ArrowRight":
+                    moveEffect();
+                    break;
             }
         });
 
-        $("#game_start_button").click(function(){
+        $(".game_start_button").click(function(){
             gameStart();
+            point = 0;
+        });
+
+        $("#mario_start_button").click(function(){
+            startPage.hide();
+            game();
+            point = 0;
         });
 
         function game(){
-            
+            setTimeout(moveKiller, 1000);
+
             // 게임 화면 그리기 30frame
             setInterval(function(){
                 if (isGameOver) {
                     gameOver();
                 } else {
-                    // 1초에 30번 그리기
-                    moveKiller();
                     // 마리오 사망 체크
                     marioDead();
+                    getPoint();
+                    killerDead();
                 }
             }, 1000 / 30);
         }
 
         $(function(){
             gameStart();
+
+            $(".game_start_button").click(function () {
+                game();
+            });
         });
     </script>
 </body>
