@@ -223,7 +223,7 @@
         function gameStart(){
             $("#gameover").hide();
             $("#start").show();
-            $("#container").show;
+            $("#container").hide();
             $("#effect").hide();
             isGameOver = false;
             
@@ -260,6 +260,7 @@
         });
 
         function game(){
+            $("#container").show();
             setTimeout(moveKiller, 1000);
 
             // 게임 화면 그리기 30frame
