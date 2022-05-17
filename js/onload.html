@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <div>div 태그</div>
-    <div>div 태그</div>
-    <p>p 태그</p>
-    <p>p 태그</p>
-    <span>span 태그</span>
-    <span>span 태그</span>
-    span 태그 span 태그
-    <a href="form.html">로그인</a>
+<body onload="init()">
+    <script>
+        function init() {
+            let btn = document.getElementById('btn');
+            btn.innerHTML = 'aaaa';
+        }
+    </script>
+
+    <button id="btn">dddd</button>
 </body>
 </html>

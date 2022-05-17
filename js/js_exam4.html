@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="button1" class="button" onmouseover="mouseChange(this)">html</div>
+    <div id="button2" class="button" onmouseover="mouseChange(this)">css</div>
+    <div id="button3" class="button" onmouseover="mouseChange(this)">javascript</div>
+
+    <style>
+        .button {
+            background-color: gray;
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+            color: white;
+            border-style: none;
+
+        }
+        .clicked {
+            background-color: white;
+            width: 200px;
+            height: 50px;
+            font-size: 20px;
+            color: black;
+            border-style: thin solid;
+        }
+    </style>
+
+    <script>
+        let checkId = "";
+
+        function mouseChange(target) {
+            target.className = "clicked";
+
+            let boxes = document.getElementsByTagName('div');
+            for (var i = 0; i < boxes.length; i++) {
+                if (boxes[i] == target){
+                    boxes[i].className = "clicked";
+                } else {
+                    boxes[i].className = "button";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

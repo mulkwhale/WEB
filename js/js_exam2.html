@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body onload="inputText()">
+    <style>
+        .center-big-text {
+            font-size: 30px;
+            text-align: center;
+        }
+        div.buttons {
+            text-align: center;
+        }
+        .invisible {
+            visibility: hidden;
+        }
+        .visible {
+            visibility: visible;
+        }
+    </style>
+    <script>
+        function inputText() {
+            let text = prompt();
+            if (text == '' || text == null) {
+                alert('텍스트값을 입력해 주세요');
+                return;
+            }
+
+            let input = document.getElementById('text');
+            input.textContent = text;
+
+            let buttons = document.getElementById('buttons');
+            
+        }
+        function changeColor(dom) {
+            let color = dom.name;
+            let text = document.getElementById('text');
+            text.style.color = color;
+        }
+    </script>
+
+    <h1 id="text" class="center-big-text"></h1>
+    <div id="buttons" class="invisible">
+        <button onclick="changeColor(this)" name="red">빨강</button>
+        <button onclick="changeColor(this)" name="blue">파랑</button>
+        <button onclick="changeColor(this)" name="green">초록</button>
+    </div>
+</body>
+</html>
