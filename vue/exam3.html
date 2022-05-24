@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <label for="station">역 이름 : </label>
+        <input v-model="query" placeholder="검색어">
+        <ul>
+            <li v-for="item in realtimeStationArrival">
+                {{ item.trainLineNm }},
+                {{ item.arvlMsg2 }},
+                {{ item.updnLine }},
+                {{ item.subwayHeading }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        let app = new Vue({
+            el: '#app',
+            data: {
+                query: '',
+                realtimeStationArrival: [], // 전체 데이터
+            },
+            created: function () {
+                // 통신
+                this.getRealtimeStationArrival();
+            },
+            methods: {
+                getRealtimeStationArrival: function () {
+                    let vm = this;
+                    fetch(`http://swopenAPI.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/${this.query}`)
+                    .then(response => response.json())
+                    .then(json => json.realtimeArrivalList)
+                    .then(function (json) {
+                        vm.realtimeStationArrival = json;
+                    })
+                }
+            },
+            watch: {
+                query: function (val) {
+                    this.getRealtimeStationArrival();
+                }
+            }
+        })
+    </script>
+</body>
+</html>
