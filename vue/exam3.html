@@ -12,6 +12,9 @@
     <div id="app">
         <label for="station">역 이름 : </label>
         <input v-model="query" placeholder="검색어">
+        <div>
+            {{ message }}
+        </div>
         <ul>
             <li v-for="item in realtimeStationArrival">
                 {{ item.trainLineNm }},
@@ -26,6 +29,7 @@
         let app = new Vue({
             el: '#app',
             data: {
+                message: '',
                 query: '',
                 realtimeStationArrival: [], // 전체 데이터
             },
@@ -36,16 +40,22 @@
             methods: {
                 getRealtimeStationArrival: function () {
                     let vm = this;
+
                     fetch(`http://swopenAPI.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/${this.query}`)
                     .then(response => response.json())
                     .then(json => json.realtimeArrivalList)
                     .then(function (json) {
                         vm.realtimeStationArrival = json;
+                        vm.message = '';
                     })
+                    .catch(function (error) {
+                        vm.message = '에러!! API 요청에 오류가 있습니다';
+                    });
                 }
             },
             watch: {
                 query: function (val) {
+                    this.message = '로딩 ....';
                     this.getRealtimeStationArrival();
                 }
             }
