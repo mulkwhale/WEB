@@ -55,6 +55,10 @@
             },
             watch: {
                 query: function (val) {
+                    // if (val == '') {
+                    //     this.realtimeArrivalList = [];
+                    //     return;
+                    // }
                     this.message = '로딩 ....';
                     this.getRealtimeStationArrival();
                 }
